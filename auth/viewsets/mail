@@ -1,0 +1,7 @@
+from django.core.mail import send_mail
+from django.conf import settings
+send_mail(
+    subject='Add an eye-catching subject',
+    message='Write an amazing message',
+    from_email=settings.EMAIL_HOST_USER,
+    recipient_list=['your_friend@their_email.com'])

@@ -1,0 +1,3 @@
+django-admin startapp auth
+
+admin
