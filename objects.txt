@@ -1,0 +1,52 @@
+{
+"username": "pcbandc@gmail.com",
+"first_name": "Anton",
+"last_name": "Chyrkov",
+"email": "pcbandc@gmail.com",
+"phone": "0996420289",
+"password":"admin777"
+}
+
+[
+	{
+		"id": "d78f657391af49268d2257c3621ae2af",
+		"status_name": "Розміщений",
+		"description": "",
+		"is_active": true
+	}
+]
+
+{
+        "order_place_point": "2023-06-18T02:48:57Z",
+		"order_number": "1052001009",
+		"discount": "0.100",
+		"user": 5,
+		"additional_information": "",
+		"order_lines": [
+			{
+				"good": 2,
+				"quantity": "3",
+				"price": "120.00"
+			},
+			{
+				"good": 3,
+				"quantity": "6",
+				"price": "108.00"
+			}
+		]
+	}
+
+
+[('order_number', '1052001009'),
+    ('discount', Decimal('0.100')),
+    ('user', <User: pcbandc@gmail.com>),
+    ('additional_information', ''),
+    ('order_lines',
+        [OrderedDict(
+            [('good', <Good: DC-DC перетворювач 300W>),
+            ('quantity', Decimal('3')),
+            ('price', Decimal('120.00'))]),
+        OrderedDict(
+            [('good', <Good: Ультрамаленький DC-DC step-down конвертер>),
+            ('quantity', Decimal('3')),
+             ('price', Decimal('120.00'))])])]

@@ -5,7 +5,7 @@ from .models import OrderStatus, Order, StatusChange, OrderLine, PostCompany, \
 
 @admin.register(OrderStatus)
 class OrderStatusAdmin(admin.ModelAdmin):
-    list_display = ('id', 'status_name', 'users', 'is_active', 'description')
+    list_display = ('id', 'status_name', 'is_active', 'description')
 
 
 @admin.register(Order)
@@ -21,7 +21,7 @@ class StatusChangeAdmin(admin.ModelAdmin):
 
 @admin.register(OrderLine)
 class OrderLineAdmin(admin.ModelAdmin):
-    list_display = ('id', 'order', 'good', 'quantity', 'price')
+    list_display = ('id', 'public_id', 'order', 'good', 'quantity', 'price')
 
 
 @admin.register(PostCompany)
@@ -31,11 +31,11 @@ class PostCompanyAdmin(admin.ModelAdmin):
 
 @admin.register(PostOffice)
 class PostOfficeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'post', 'zip', 'locality_type', 'locality'
+    list_display = ('id', 'post', 'zip', 'locality_type', 'locality',
                     'max_weight', 'is_active')
 
 
 @admin.register(OrderDestination)
 class OrderDestinationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'post_office', 'region', 'district', 'street_type'
+    list_display = ('id', 'post_office', 'region', 'district', 'street_type',
                     'street', 'building', 'apartment')

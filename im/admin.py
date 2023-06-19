@@ -5,7 +5,7 @@ from .models import Good, GoodsCategory, UoM, GoodsCharacteristics, Price, Price
 
 @admin.register(Good)
 class GoodAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'public_id', 'name', 'good_category', 'good_type')
 
 
 @admin.register(UoM)
