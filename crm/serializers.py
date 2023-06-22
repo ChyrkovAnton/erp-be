@@ -26,7 +26,9 @@ class OrderSerializer (serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'order_number', 'order_place_point', 'discount',
-                  'user', 'additional_information', 'order_lines']
+                  'additional_information', 'customer_first_name',
+                  'customer_middle_name', 'customer_last_name',
+                  'customer_phone', 'customer_email', 'order_lines']
 
 
 class OrderSerializerCreate(OrderSerializer):
@@ -39,3 +41,10 @@ class OrderSerializerCreate(OrderSerializer):
             OrderLine.objects.create(order=order, **line)
         order.order_lines = list(order.order_line_order.all())
         return order
+
+
+class CitiesPostOfficeSerializer (serializers.ModelSerializer):
+
+    class Meta:
+        model = PostOffice
+        fields = ['city_description']
