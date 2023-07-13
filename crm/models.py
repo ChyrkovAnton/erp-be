@@ -15,6 +15,15 @@ class OrderStatus(models.Model):
         return f'{self.status_name}'
 
 
+class PostCompany(models.Model):
+    public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4)
+    name = models.CharField(max_length=15, unique=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Order(models.Model):
     public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4)
     order_number = models.CharField(max_length=15, blank=True, null=True)
@@ -25,6 +34,9 @@ class Order(models.Model):
     customer_phone = models.CharField(max_length=15, blank=True, null=True)
     customer_email = models.CharField(max_length=50, blank=True, null=True)
     discount = models.DecimalField(max_digits=4, decimal_places=3)
+    order_destination = models.CharField(max_length=200, blank=True, null=True)
+    carrier = models.ForeignKey(PostCompany, on_delete=models.PROTECT, blank=True, null=True)
+    payment_type = models.CharField(max_length=2, blank=True, null=True)
     additional_information = models.TextField(blank=True, null=True)
     is_paid = models.BooleanField(default=False)
     is_returned = models.BooleanField(default=False)
@@ -53,15 +65,6 @@ class OrderLine(models.Model):
 
     def __str__(self):
         return f'{self.public_id} {self.order}'
-
-
-class PostCompany(models.Model):
-    public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4)
-    name = models.CharField(max_length=15, unique=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.name
 
 
 class PostOffice(models.Model):

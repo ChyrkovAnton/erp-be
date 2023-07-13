@@ -28,7 +28,8 @@ class OrderSerializer (serializers.ModelSerializer):
         fields = ['id', 'order_number', 'order_place_point', 'discount',
                   'additional_information', 'customer_first_name',
                   'customer_middle_name', 'customer_last_name',
-                  'customer_phone', 'customer_email', 'order_lines']
+                  'customer_phone', 'customer_email', 'order_destination',
+                  'order_lines', 'carrier', 'payment_type']
 
 
 class OrderSerializerCreate(OrderSerializer):

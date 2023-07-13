@@ -1,6 +1,7 @@
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
-from .models import Good, GoodsCategory, UoM, GoodsCharacteristics, Price, PriceType
+from .models import Good, GoodsCategory, UoM, GoodsCharacteristic, Price, \
+    PriceType, GoodCharacteristicType
 
 
 @admin.register(Good)
@@ -10,12 +11,13 @@ class GoodAdmin(admin.ModelAdmin):
 
 @admin.register(UoM)
 class UoMAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'uom_short_name', 'uom_full_name')
 
 
-@admin.register(GoodsCharacteristics)
+@admin.register(GoodsCharacteristic)
 class GoodsCharacteristicsAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'characteristics_type', 'good', 'uom',
+                    'characteristics_value')
 
 
 @admin.register(GoodsCategory)
@@ -32,6 +34,12 @@ class PriceAdmin(admin.ModelAdmin):
 @admin.register(PriceType)
 class PriceTypeAdmin(admin.ModelAdmin):
     list_display = ('price_type', 'description', 'calculation')
+
+
+@admin.register(GoodCharacteristicType)
+class CharacteristicTypeAdmin(admin.ModelAdmin):
+    list_display = ('characteristics_full_name', 'characteristics_short_name',
+                    'priority')
 
 
 
