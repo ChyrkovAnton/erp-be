@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import GoodsCategoriesAPIView, GoodsCategoriesAPIViewTree, \
     GoodsAPIView, UoMAPIView, GoodCharacteristicTypeAPIView, \
-    GoodsCharacteristicAPIView
+    GoodsCharacteristicAPIView, get_category_characteristics
 
 
 urlpatterns = [
@@ -11,4 +11,5 @@ urlpatterns = [
     path('uoms/', UoMAPIView.as_view()),
     path('good_char_types/', GoodCharacteristicTypeAPIView.as_view()),
     path('good_charact/', GoodsCharacteristicAPIView.as_view()),
+    path('category_characteristics/', get_category_characteristics),
 ]

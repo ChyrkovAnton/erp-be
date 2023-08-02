@@ -4,20 +4,27 @@ from .models import Good, GoodsCategory, UoM, GoodsCharacteristic, Price, \
     PriceType, GoodCharacteristicType
 
 
-@admin.register(Good)
-class GoodAdmin(admin.ModelAdmin):
-    list_display = ('id', 'public_id', 'name', 'good_category', 'good_type')
-
-
-@admin.register(UoM)
-class UoMAdmin(admin.ModelAdmin):
-    list_display = ('id', 'uom_short_name', 'uom_full_name')
-
-
 @admin.register(GoodsCharacteristic)
 class GoodsCharacteristicsAdmin(admin.ModelAdmin):
     list_display = ('id', 'characteristics_type', 'good', 'uom',
                     'characteristics_value')
+
+
+class GoodsCharacteristicInline(admin.TabularInline):
+    model = GoodsCharacteristic
+    extra = 0
+
+
+@admin.register(Good)
+class GoodAdmin(admin.ModelAdmin):
+    list_display = ('id', 'public_id', 'name', 'good_category', 'good_type')
+    inlines = [
+        GoodsCharacteristicInline
+    ]
+
+@admin.register(UoM)
+class UoMAdmin(admin.ModelAdmin):
+    list_display = ('id', 'uom_short_name', 'uom_full_name')
 
 
 @admin.register(GoodsCategory)

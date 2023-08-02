@@ -7,6 +7,11 @@ from .models import OrderStatus, Order, StatusChange, OrderLine, PostCompany, \
 @admin.register(OrderStatus)
 class OrderStatusAdmin(admin.ModelAdmin):
     list_display = ('id', 'status_name', 'is_active', 'description')
+    
+
+class OrderLineInline(admin.TabularInline):
+    model = OrderLine
+    extra = 0
 
 
 @admin.register(Order)
@@ -14,6 +19,9 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'order_number', 'order_place_point', 'discount',
                     'additional_information', 'customer_first_name',
                     'customer_last_name', 'is_paid')
+    inlines = [
+        OrderLineInline
+    ]
 
 
 @admin.register(StatusChange)
@@ -55,10 +63,10 @@ class PostOfficeAdmin(ImportExportModelAdmin):
                     )
 
 
-    @admin.register(PostCompany)
-    class PostCompanyAdmin(admin.ModelAdmin):
-        list_display = ('id',
-                        'public_id',
-                        'name',
-                        'is_active'
-                        )
+@admin.register(PostCompany)
+class PostCompanyAdmin(admin.ModelAdmin):
+    list_display = ('id',
+                    'public_id',
+                    'name',
+                    'is_active'
+                    )

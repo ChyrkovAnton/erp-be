@@ -50,7 +50,7 @@ class GoodsCharacteristicSerializer(serializers.ModelSerializer):
 class GoodsCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = GoodsCategory
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'category_parent']
 
 
 class GoodsSubCategoryRecursiveSerializer(serializers.ModelSerializer):

@@ -4,7 +4,7 @@ import uuid
 
 
 class GoodsCategory(MPTTModel):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=30)
     category_parent = TreeForeignKey('self', on_delete=models.PROTECT, null=True, blank=True,
                                      related_name='subcategories')
 
@@ -54,6 +54,7 @@ class GoodCharacteristicType(models.Model):
                                                  verbose_name='Повна назва типу характеристики')
     characteristics_short_name = models.CharField(max_length=50, blank=True, null=True)
     priority = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null=True)
+    input_type = models.CharField(max_length=1, default=1)
 
     def __str__(self):
         return f'{self.characteristics_full_name}'
