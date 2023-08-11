@@ -20,8 +20,13 @@ class GoodsCategoriesAPIViewTree(generics.ListAPIView):
 
 
 class GoodsAPIView(generics.ListAPIView, generics.CreateAPIView):
-    queryset = Good.objects.all()
     serializer_class = GoodsSerializer
+
+    def get_queryset(self):
+        category = self.request.GET.get('category_id')
+        if category == '1':
+            return Good.objects.all()
+        return Good.objects.filter(good_category=category)
 
 
 class UoMAPIView(generics.ListAPIView):

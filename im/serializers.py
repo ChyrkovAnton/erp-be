@@ -70,6 +70,7 @@ class GoodsCategorySerializerTree(serializers.ModelSerializer):
 class GoodsSerializer(serializers.ModelSerializer):
     current_price = serializers.SerializerMethodField('get_current_price')
     good_characteristics = GoodsCharacteristicSerializer(source='characteristics', many=True)
+    category = GoodsCategorySerializer(source='good_category')
 
     def get_current_price (self, obj):
         prices = obj.prices.all()
@@ -79,6 +80,7 @@ class GoodsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Good
-        fields = ['id', 'name', 'good_image', 'description', 'current_price', 'good_characteristics']
+        fields = ['id', 'name', 'good_image', 'description', 'current_price', 'good_characteristics',
+                  'category']
 
 

@@ -39,7 +39,7 @@ class Good(models.Model):
     good_image = models.ImageField(upload_to='images', blank=True, null=True)
     good_category = models.ForeignKey(GoodsCategory,
                                       on_delete=models.PROTECT,
-                                      related_name='goods')
+                                      related_name='categories')
     good_type = models.CharField(max_length=2, choices=GOOD_TYPES_CHOICES, default='GD')
     description = models.TextField(blank=True, null=True)
     bar_code = models.CharField(max_length=12, blank=True, null=True)

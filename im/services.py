@@ -15,6 +15,8 @@ def get_category_goods_characteristics(request):
                                   for characteristic in goods_characteristics]
 
     def get_unique_characteristics_list(full_characteristics_list):
+        if len(goods_characteristics_list) == 0:
+            return []
         unique_characteristics_list = [full_characteristics_list[0]]
         for characteristic in goods_characteristics_list:
             if characteristic not in unique_characteristics_list:
@@ -42,6 +44,8 @@ def get_current_price(good):
 
 
 def get_price_range(goods):
+    if len(goods) == 0:
+        return {'min_price': 0, 'max_price': 0}
     prices = []
     for good in goods:
         prices.append(get_current_price(good))
