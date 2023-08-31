@@ -1,13 +1,13 @@
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
 from .models import Good, GoodsCategory, UoM, GoodsCharacteristic, Price, \
-    PriceType, GoodCharacteristicType
+    PriceType, GoodCharacteristicType, GoodsFeature
 
 
 @admin.register(GoodsCharacteristic)
 class GoodsCharacteristicsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'characteristics_type', 'good', 'uom',
-                    'characteristics_value')
+    list_display = ('id', 'characteristic_type', 'good', 'uom',
+                    'characteristic_value')
 
 
 class GoodsCharacteristicInline(admin.TabularInline):
@@ -15,12 +15,29 @@ class GoodsCharacteristicInline(admin.TabularInline):
     extra = 0
 
 
+class PriceInline(admin.TabularInline):
+    model = Price
+    extra = 0
+
+
+class GoodsFeatureInline(admin.TabularInline):
+    model = Good.goodsfeature_set.through
+    extra = 0
+
+
 @admin.register(Good)
 class GoodAdmin(admin.ModelAdmin):
-    list_display = ('id', 'public_id', 'name', 'good_category', 'good_type')
+    list_display = ('id', 'public_id', 'name', 'good_category', 'good_type', 'get_features')
+    list_display_links = ('id', 'public_id', 'name', 'good_category', 'good_type', 'get_features')
     inlines = [
-        GoodsCharacteristicInline
+        GoodsCharacteristicInline,
+        PriceInline,
+        GoodsFeatureInline
     ]
+
+    def get_features(self, instance):
+        return [feature for feature in instance.goodsfeature_set.all()]
+
 
 @admin.register(UoM)
 class UoMAdmin(admin.ModelAdmin):
@@ -45,10 +62,13 @@ class PriceTypeAdmin(admin.ModelAdmin):
 
 @admin.register(GoodCharacteristicType)
 class CharacteristicTypeAdmin(admin.ModelAdmin):
-    list_display = ('characteristics_full_name', 'characteristics_short_name',
+    list_display = ('characteristic_full_name', 'characteristic_short_name',
                     'priority')
 
 
+@admin.register(GoodsFeature)
+class GoodsFeatureAdmin(admin.ModelAdmin):
+    list_display = ('id', 'characteristic_type', 'uom', 'characteristic_value')
 
 
 

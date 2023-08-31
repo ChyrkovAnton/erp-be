@@ -50,19 +50,19 @@ class Good(models.Model):
 
 class GoodCharacteristicType(models.Model):
     public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4)
-    characteristics_full_name = models.CharField(max_length=50,
+    characteristic_full_name = models.CharField(max_length=50,
                                                  verbose_name='Повна назва типу характеристики')
-    characteristics_short_name = models.CharField(max_length=50, blank=True, null=True)
+    characteristic_short_name = models.CharField(max_length=50, blank=True, null=True)
     priority = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null=True)
     input_type = models.CharField(max_length=1, default=1)
 
     def __str__(self):
-        return f'{self.characteristics_full_name}'
+        return f'{self.characteristic_full_name}'
 
 
 class GoodsCharacteristic(models.Model):
     public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4)
-    characteristics_type = models.ForeignKey(GoodCharacteristicType,
+    characteristic_type = models.ForeignKey(GoodCharacteristicType,
                                              on_delete=models.PROTECT,
                                              related_name='characteristic_types',
                                              default=1)
@@ -71,7 +71,21 @@ class GoodsCharacteristic(models.Model):
                              related_name='characteristics',
                              default=1)
     uom = models.ForeignKey(UoM, on_delete=models.PROTECT)
-    characteristics_value = models.DecimalField(max_digits=15, decimal_places=8)
+    characteristic_value = models.DecimalField(max_digits=15, decimal_places=8)
+
+
+class GoodsFeature(models.Model):
+    public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4)
+    characteristic_type = models.ForeignKey(GoodCharacteristicType,
+                                            on_delete=models.PROTECT,
+                                            related_name='feature_type',
+                                            default=1)
+    good = models.ManyToManyField(Good)
+    uom = models.ForeignKey(UoM, on_delete=models.PROTECT, blank=True, null=True)
+    characteristic_value = models.CharField(max_length=25)
+
+    def __str__(self):
+        return f'{self.characteristic_type} - {self.characteristic_value}{self.uom.uom_short_name if self.uom else None}'
 
 
 class PriceType(models.Model):
