@@ -10,11 +10,6 @@ class GoodsCharacteristicsAdmin(admin.ModelAdmin):
                     'characteristic_value')
 
 
-class GoodsCharacteristicInline(admin.TabularInline):
-    model = GoodsCharacteristic
-    extra = 0
-
-
 class PriceInline(admin.TabularInline):
     model = Price
     extra = 0
@@ -30,7 +25,6 @@ class GoodAdmin(admin.ModelAdmin):
     list_display = ('id', 'public_id', 'name', 'good_category', 'good_type', 'get_features')
     list_display_links = ('id', 'public_id', 'name', 'good_category', 'good_type', 'get_features')
     inlines = [
-        GoodsCharacteristicInline,
         PriceInline,
         GoodsFeatureInline
     ]
