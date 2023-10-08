@@ -2,15 +2,13 @@ from rest_framework import generics
 from django.http import JsonResponse
 from rest_framework.utils import json
 from django.views.decorators.csrf import csrf_exempt
-from .models import GoodsCategory, Good, UoM, GoodCharacteristicType, \
-     GoodsCharacteristic, GoodsFeature
+from .models import GoodsCategory, UoM, GoodCharacteristicType, GoodsCharacteristic, \
+    GoodsFeature, Good
 from .serializers import GoodsCategorySerializer, GoodsCategorySerializerTree, \
-     UoMSerializer, GoodCharacteristicTypeSerializer, \
-     GoodsCharacteristicSerializer, GoodsSerializer, GoodsFeatureSerializer
-from .services import get_price_range, \
-    get_goods_queryset_filtered_by_category, get_current_price, \
-    create_category_characteristics_response, get_goods_queryset_bound_by_price, \
-    get_goods_queryset_filtered_by_features, get_active_features
+    UoMSerializer, GoodCharacteristicTypeSerializer, GoodsCharacteristicSerializer,\
+    GoodsSerializer, GoodsFeatureSerializer
+from .services import create_category_characteristics_response, get_active_features, \
+    filter_goods_by_all_parameters, pivot_goods_features, group_goods_by_category_name
 
 
 class GoodsCategoriesAPIView(generics.ListAPIView, generics.CreateAPIView):
@@ -27,11 +25,14 @@ class GoodsAPIView(generics.ListAPIView, generics.CreateAPIView):
     serializer_class = GoodsSerializer
 
     def get_queryset(self):
-        request = self.request
-        goods_filtered_by_category = get_goods_queryset_filtered_by_category(request)
-        goods_filtered_by_price = get_goods_queryset_bound_by_price(request, goods_filtered_by_category)
-        goods_filtered_by_features = get_goods_queryset_filtered_by_features(request, goods_filtered_by_price)
-        return goods_filtered_by_features
+        return filter_goods_by_all_parameters(self.request)
+
+
+class GoodAPIView(generics.RetrieveAPIView):
+    serializer_class = GoodsSerializer
+
+    def get_object(self):
+        return Good.objects.get(id=self.kwargs.get('good_id'))
 
 
 class UoMAPIView(generics.ListAPIView):
@@ -68,6 +69,15 @@ def send_category_characteristics(request):
 
 def send_active_features(request):
     return JsonResponse(get_active_features(request))
+
+
+def send_goods_pivot(request):
+    return JsonResponse(pivot_goods_features(request))
+
+
+def make_goods_grouped_by_category_name_response(request):
+    return JsonResponse({'categories': group_goods_by_category_name(request)})
+
 
 
 
