@@ -1,9 +1,11 @@
+import uuid
 from django.db import models
 from im.models import Good
 from user.models import User
 
 
 class Comment(models.Model):
+    public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4)
     good = models.ForeignKey(Good, on_delete=models.CASCADE, related_name='comments')
     customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
