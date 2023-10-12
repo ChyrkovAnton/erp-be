@@ -218,3 +218,10 @@ def get_goods_by_id_list(request):
     good_ids = json.loads(good_ids_parameter)
     if isinstance(good_ids, list):
         return Good.objects.filter(id__in=good_ids)
+
+
+def get_wish_list_goods(request):
+    wish_list_raw = request.GET.get('wish_list')
+    if wish_list_raw is not None:
+        goods_list = json.loads(wish_list_raw)
+        return Good.objects.filter(id__in=goods_list)

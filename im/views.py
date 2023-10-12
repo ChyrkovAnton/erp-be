@@ -8,7 +8,8 @@ from .serializers import GoodsCategorySerializer, GoodsCategorySerializerTree, \
     UoMSerializer, GoodCharacteristicTypeSerializer, GoodsCharacteristicSerializer,\
     GoodsSerializer, GoodsFeatureSerializer
 from .services import create_category_characteristics_response, get_active_features, \
-    filter_goods_by_all_parameters, pivot_goods_features, group_goods_by_category_name
+    filter_goods_by_all_parameters, pivot_goods_features, group_goods_by_category_name, \
+    get_wish_list_goods
 
 
 class GoodsCategoriesAPIView(generics.ListAPIView, generics.CreateAPIView):
@@ -26,6 +27,13 @@ class GoodsAPIView(generics.ListAPIView, generics.CreateAPIView):
 
     def get_queryset(self):
         return filter_goods_by_all_parameters(self.request)
+
+
+class WishListGoodsAPIView(generics.ListAPIView):
+    serializer_class = GoodsSerializer
+
+    def get_queryset(self):
+        return get_wish_list_goods(self.request)
 
 
 class GoodAPIView(generics.RetrieveAPIView):
