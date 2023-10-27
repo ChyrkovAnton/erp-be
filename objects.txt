@@ -50,3 +50,25 @@
             [('good', <Good: Ультрамаленький DC-DC step-down конвертер>),
             ('quantity', Decimal('3')),
              ('price', Decimal('120.00'))])])]
+
+
+# order
+
+{
+	"carrier": "1",
+	"customer": "577835d4b3e34fa3b729953c249fa87d",
+	"customer_email": "pcbandc@gmail.com",
+	"customer_first_name": "Антон",
+	"customer_last_name": "Чирков",
+	"customer_middle_name": "Борисович",
+	"customer_phone": "(099) 642-02-89",
+	"discount": "0.020",
+	"order_destination": "Харківська, Харків, відділення №103 Холодногірська, 9",
+	"order_lines": [
+		{"good": "3", "price": "210.00", "quantity": "1"},
+		{"good": "4", "price": "210.00", "quantity": "1"}
+	],
+	"order_number": "2986803022",
+	"payment_type": 				"3"
+}
+

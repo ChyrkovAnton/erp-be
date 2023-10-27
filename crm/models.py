@@ -26,6 +26,8 @@ class PostCompany(models.Model):
 
 class Order(models.Model):
     public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4)
+    customer = models.ForeignKey(User, on_delete=models.PROTECT, blank=True,
+                                 null=True, related_name='orders')
     order_number = models.CharField(max_length=15, blank=True, null=True)
     order_place_point = models.DateTimeField(auto_now=True)
     customer_first_name = models.CharField(max_length=30, blank=True, null=True)
@@ -35,12 +37,14 @@ class Order(models.Model):
     customer_email = models.CharField(max_length=50, blank=True, null=True)
     discount = models.DecimalField(max_digits=4, decimal_places=3)
     order_destination = models.CharField(max_length=200, blank=True, null=True)
-    carrier = models.ForeignKey(PostCompany, on_delete=models.PROTECT, blank=True, null=True)
+    carrier = models.ForeignKey(PostCompany, on_delete=models.PROTECT,
+                                blank=True, null=True)
     payment_type = models.CharField(max_length=2, blank=True, null=True)
     additional_information = models.TextField(blank=True, null=True)
     is_paid = models.BooleanField(default=False)
     is_returned = models.BooleanField(default=False)
     is_payment_returned = models.BooleanField(default=False)
+    is_cancelled = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.order_number} {self.order_place_point}'

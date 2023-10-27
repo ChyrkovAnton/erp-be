@@ -4,6 +4,7 @@ from .models import OrderStatus, Order, StatusChange, OrderLine, PostCompany, \
                     PostOffice, OrderDestination
 from .serializers import OrderStatusSerializer, OrderLineSerializer, \
     OrderSerializer, OrderSerializerCreate, CitiesPostOfficeSerializer
+from .services import get_customer_statistics
 
 
 class OrderStatusAPIView(generics.ListAPIView, generics.CreateAPIView):
@@ -60,6 +61,10 @@ def offices_by_city(request):
     po = list(set([format_po(post_office) for post_office in queryset]))
     po.sort()
     return JsonResponse({'po': po})
+
+
+def provide_customer_statistics(request, **kwargs):
+    return JsonResponse({'statistics': get_customer_statistics(request, **kwargs)})
 
 
 

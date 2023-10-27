@@ -21,5 +21,5 @@ urlpatterns = [
     path('active_features/', send_active_features),
     path('goods_pivot/', send_goods_pivot),
     path('goods_by_category/', make_goods_grouped_by_category_name_response),
-    path('wish_list/', WishListGoodsAPIView.as_view())
+    path('wish_list/', WishListGoodsAPIView.as_view()),
 ]

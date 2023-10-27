@@ -17,8 +17,8 @@ class OrderLineInline(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'order_number', 'order_place_point', 'discount',
-                    'additional_information', 'customer_first_name',
-                    'customer_last_name', 'is_paid')
+                    'customer_first_name', 'customer', 'customer_last_name',
+                    'additional_information', 'is_paid')
     inlines = [
         OrderLineInline
     ]
